@@ -1,0 +1,3 @@
+# Se permite el rastreo a propósito: las páginas llevan noindex,nofollow y Google tiene que poder leerlo.
+User-agent: *
+Allow: /
