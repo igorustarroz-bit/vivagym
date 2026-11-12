@@ -3,21 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>VivaGym Puerta del Sol · Prototipo</title>
-<meta name="description" content="Prototipo navegable (wireframe) de la ficha de gimnasio y el flujo de alta de VivaGym. Hanzo.">
+<title>Prototipo de diseño · Ficha de club y alta (no oficial)</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Prototipo de diseño no oficial hecho por Hanzo. No es una página oficial de la marca que aparece ni está publicada ni respaldada por ella. No recoge ni envía ningún dato.">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#06132b" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<meta name="robots" content="noindex">
-<meta property="og:title" content="VivaGym Puerta del Sol · Prototipo">
-<meta property="og:description" content="Prototipo navegable del flujo de alta de VivaGym. Ábrelo en el móvil.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f65f0'/%3E%3Cpath d='M7 9h4.5l4.5 10 4.5-10H25l-7 15h-4z' fill='white'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='6' fill='none' stroke='%23888' stroke-width='2' stroke-dasharray='4 3'/%3E%3C/svg%3E">
 <style>
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/inter-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/inter-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/inter-latin-900-normal.woff2) format("woff2")}
 :root{
   --bg:#ffffff; --page:#f3f7fe; --surface:#ecf3fe; --surface-2:#ffffff;
   --text:#031430; --text-2:#0c51c0; --accent:#0f65f0; --accent-2:#3f84f3;
@@ -342,15 +340,15 @@ svg{display:block}
 .field{display:flex;border:1px solid var(--accent-2);border-radius:4px;height:56px;overflow:hidden;transition:border-color .2s, box-shadow .2s}
 .field:focus-within{box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent)}
 .field.err{border-color:var(--dot)}
-.field input{flex:1;min-width:0;border:0;background:transparent;padding:0 16px;font:inherit;font-size:16px;color:var(--text);outline:none}
-.field input::placeholder{color:var(--accent)}
+.field .fx-in{flex:1;min-width:0;border:0;background:transparent;padding:0 16px;font:inherit;font-size:16px;color:var(--text);outline:none}
+.field .fx-in:empty::before{content:attr(data-ph);color:var(--accent)}
 .field button{width:56px;background:var(--surface);color:var(--soft);display:grid;place-items:center;transition:background .2s,color .2s}
 .field.ok button{background:var(--accent);color:#fff}
 .chk{display:flex;gap:8px;align-items:center;margin-top:16px;font-size:13px;line-height:16px;color:var(--accent-2);cursor:pointer}
-.chk input{appearance:none;width:16px;height:16px;border:1px solid var(--text-2);border-radius:2px;margin:0;display:grid;place-items:center;transition:background .2s}
-.chk input:checked{background:var(--accent);border-color:var(--accent)}
-.chk input:checked::after{content:"";width:8px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
-.chk.err input{border-color:var(--dot)}
+.chk .fx-chk{appearance:none;width:16px;height:16px;border:1px solid var(--text-2);border-radius:2px;margin:0;display:grid;place-items:center;transition:background .2s}
+.chk .fx-chk[aria-checked="true"]{background:var(--accent);border-color:var(--accent)}
+.chk .fx-chk[aria-checked="true"]::after{content:"";width:8px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.chk.err .fx-chk{border-color:var(--dot)}
 .chk b{font-weight:400;color:var(--text-2)}
 .msg{font-size:12px;line-height:16px;margin:8px 0 0;min-height:16px;color:var(--dot)}
 .msg.ok{color:#1a9a57}
@@ -371,7 +369,7 @@ svg{display:block}
 .locale{display:flex;gap:24px;margin:0 32px}
 .lang{position:relative;flex:1;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;height:56px;font-size:14px;cursor:pointer}
 .lang:hover{color:var(--accent)}
-.lang select{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:16px}
+.lang .fx-sel{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:16px}
 
 /* ---------- Sticky CTA ---------- */
 .cta{position:fixed;left:50%;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:min(424px, calc(100% - 16px));transform:translate(-50%, 140%);z-index:35;background:var(--btn);color:var(--btn-text);border-radius:var(--r-m);padding:12px 16px;display:flex;flex-direction:column;gap:8px;align-items:center;transition:transform .45s var(--ease)}
@@ -396,7 +394,7 @@ svg{display:block}
 .sheet .x{flex:none;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--surface);transition:background .2s}
 .sheet .x:hover{background:var(--line)}
 .sheet .field{margin-bottom:12px}
-.sheet .field input::placeholder{color:var(--accent-2)}
+.sheet .field .fx-in:empty::before{color:var(--accent-2)}
 
 .drawer-clip{position:fixed;top:0;bottom:0;left:50%;width:min(440px,100%);transform:translateX(-50%);overflow:hidden;z-index:71;pointer-events:none}
 .drawer-clip.on{pointer-events:auto}
@@ -419,7 +417,7 @@ svg{display:block}
 .search{position:fixed;inset:0 0 auto;left:50%;width:min(440px,100%);transform:translate(-50%,-100%);z-index:72;background:var(--bg);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 16px;transition:transform .35s var(--ease);border-radius:0 0 16px 16px}
 .search.on{transform:translate(-50%,0)}
 .search .bar{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--accent);padding:8px 0}
-.search input{flex:1;border:0;background:transparent;font:inherit;color:var(--text);outline:none}
+.search .fx-in{flex:1;border:0;background:transparent;font:inherit;color:var(--text);outline:none}
 .search ul{list-style:none;margin:8px 0 0;padding:0;max-height:50vh;overflow:auto}
 .search li button{width:100%;text-align:left;padding:12px 4px;border-bottom:1px solid var(--surface);display:flex;justify-content:space-between;font-size:14px}
 .search li button:hover{color:var(--accent)}
@@ -488,14 +486,14 @@ svg{display:block}
 .promo.open .body{grid-template-rows:1fr}
 .promo .body > div{overflow:hidden}
 .promo .row{display:flex;gap:8px;padding-top:16px}
-.promo input{flex:1;min-width:0;height:48px;border:1px solid var(--soft);padding:0 16px;font:inherit;font-size:16px;background:var(--bg);color:var(--text);outline:none;text-transform:uppercase}
-.promo input:focus{border-color:var(--accent)}
+.promo .fx-in{flex:1;min-width:0;height:48px;border:1px solid var(--soft);padding:0 16px;font:inherit;font-size:16px;background:var(--bg);color:var(--text);outline:none;text-transform:uppercase}
+.promo .fx-in:focus{border-color:var(--accent)}
 .promo .row button{height:48px;padding:0 20px;border-radius:var(--r-m);background:var(--surface);font-size:14px}
 .fld{position:relative;height:72px;border:1px solid var(--soft);background:var(--bg);transition:border-color .2s, box-shadow .2s}
 .fld:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent)}
 .fld label{position:absolute;left:20px;top:24px;font-size:18px;line-height:24px;color:var(--accent);pointer-events:none;transition:.2s var(--ease)}
-.fld input,.fld select{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;padding:26px 20px 0;font:inherit;font-size:18px;line-height:24px;color:var(--text);outline:none;appearance:none}
-.fld input::placeholder{color:transparent}
+.fld .fx-in,.fld .fx-sel{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;padding:26px 20px 0;font:inherit;font-size:18px;line-height:24px;color:var(--text);outline:none;appearance:none}
+.fld .fx-in::before{display:none}
 .fld:focus-within label,.fld.filled label{top:12px;font-size:12px;line-height:14px}
 .fld.err{border-color:var(--dot)}
 .fld .em{position:absolute;left:0;top:calc(100% + 4px);font-size:12px;line-height:14px;color:var(--dot);white-space:nowrap}
@@ -505,13 +503,13 @@ svg{display:block}
 .row2{display:flex;gap:16px}
 .row2 > *{flex:1;min-width:0}
 .pre{flex:0 0 104px!important}
-.pre select{padding:0 40px 0 20px;color:var(--accent)}
+.pre .fx-sel{padding:0 40px 0 20px;color:var(--accent)}
 .pre::after{content:"";position:absolute;right:22px;top:30px;width:8px;height:8px;border-right:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:rotate(45deg);pointer-events:none}
 .chk2{display:flex;gap:12px;align-items:center;font-size:14px;line-height:16px;color:var(--text-2);cursor:pointer}
-.chk2 input{appearance:none;width:20px;height:20px;border:1px solid var(--accent);margin:0;flex:none;display:grid;place-items:center;transition:background .2s}
-.chk2 input:checked{background:var(--accent)}
-.chk2 input:checked::after{content:"";width:10px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
-.chk2.err input{border-color:var(--dot)}
+.chk2 .fx-chk{appearance:none;width:20px;height:20px;border:1px solid var(--accent);margin:0;flex:none;display:grid;place-items:center;transition:background .2s}
+.chk2 .fx-chk[aria-checked="true"]{background:var(--accent)}
+.chk2 .fx-chk[aria-checked="true"]::after{content:"";width:10px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.chk2.err .fx-chk{border-color:var(--dot)}
 .exs{display:flex;align-items:center;gap:24px;border:1px solid var(--line);border-radius:12px;padding:14px 14px 21px;text-align:left;margin:0 -16px;transition:border-color .2s}
 .exs:hover{border-color:var(--soft)}
 .exs b{display:block;font-weight:400;font-size:18px;line-height:28px}
@@ -593,10 +591,10 @@ svg{display:block}
 .visit .act .btn2{background:var(--bg)}
 .bring{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .bring label{display:flex;gap:12px;align-items:center;font-size:16px;line-height:20px;color:var(--text-2);cursor:pointer}
-.bring input{appearance:none;width:20px;height:20px;border:1px solid var(--accent);margin:0;flex:none;display:grid;place-items:center}
-.bring input:checked{background:var(--accent)}
-.bring input:checked::after{content:"";width:10px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
-.bring input:checked + span{text-decoration:line-through;opacity:.6}
+.bring .fx-chk{appearance:none;width:20px;height:20px;border:1px solid var(--accent);margin:0;flex:none;display:grid;place-items:center}
+.bring .fx-chk[aria-checked="true"]{background:var(--accent)}
+.bring .fx-chk[aria-checked="true"]::after{content:"";width:10px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.bring .fx-chk[aria-checked="true"] + span{text-decoration:line-through;opacity:.6}
 .invite{border:1px solid var(--text);border-radius:12px;padding:16px;margin:0 -16px;display:flex;flex-direction:column;gap:12px}
 .invite b{font-weight:400;font-size:18px;line-height:24px}
 .invite p{margin:0;font-size:14px;line-height:18px}
@@ -607,6 +605,22 @@ svg{display:block}
 .back-home{display:block;margin:8px auto 0;font-size:14px;color:var(--accent)}
 .back-home:hover{text-decoration:underline}
 
+/* ---------- Campos de demostración (sin elementos de formulario) ---------- */
+.fx-in{display:flex;align-items:center;cursor:pointer;-webkit-user-select:none;user-select:none;white-space:nowrap;overflow:hidden;font:inherit}
+.fx-in:empty::before{content:attr(data-ph);color:var(--accent-2)}
+.fld .fx-in{display:flex;align-items:center}
+.fx-in.typing::after{content:"";width:1.5px;height:1.1em;background:var(--accent);margin-left:1px;animation:blink .8s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.fx-sel{display:flex;align-items:center;cursor:pointer;font:inherit}
+.fx-chk{cursor:pointer}
+.fld .fx-hint{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:11px;line-height:14px;color:var(--soft);pointer-events:none;transition:opacity .2s}
+.fld.filled .fx-hint,.fld:focus-within .fx-hint{opacity:0}
+.row2 .fx-hint{display:none}
+.democard{display:flex;gap:14px;align-items:center;border:1px solid var(--text);border-radius:var(--r-m);padding:14px 16px;margin:0}
+.democard .dc-ic{width:40px;height:28px;border-radius:5px;flex:none;background:repeating-linear-gradient(135deg,var(--ph-a) 0 6px,var(--surface) 6px 8px);border:1px solid var(--line)}
+.democard b{display:block;font-weight:400;font-size:16px;line-height:20px}
+.democard small{display:block;font-size:12px;line-height:14px;color:var(--text-2);margin-top:2px}
+.proto-note{font-size:12px;line-height:16px;color:var(--text-2);margin:8px 0 0}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
@@ -777,28 +791,28 @@ svg{display:block}
   <div class="news">
     <h2>Historias, novedades y experiencias para disfrutar del universo VivaGym.</h2>
     <p class="nl">Date de alta en nuestra newsletter</p>
-    <form id="nlForm" novalidate>
+    <div data-form id="nlForm">
       <div class="field" id="nlField">
-        <label class="sr" for="nlEmail">Email</label>
-        <input id="nlEmail" type="email" placeholder="Email" autocomplete="email">
-        <button type="submit" aria-label="Suscribirme" data-i="ArrowRight" data-s="20"></button>
+        <label class="sr" data-for="nlEmail">Email</label>
+        <span class="fx-in" role="button" tabindex="0" id="nlEmail" data-ph="Email"></span>
+        <button type="button" data-submit aria-label="Suscribirme" data-i="ArrowRight" data-s="20"></button>
       </div>
-      <label class="chk" id="nlChk"><input type="checkbox" id="nlPriv"> <span>Acepto la <b>política de privacidad</b></span></label>
+      <label class="chk" id="nlChk"><span class="fx-chk" role="checkbox" aria-checked="false" tabindex="0" id="nlPriv"></span> <span>Acepto la <b>política de privacidad</b></span></label>
       <p class="msg" id="nlMsg" aria-live="polite"></p>
-    </form>
+    </div>
   </div>
   <div class="acc" id="acc"></div>
   <nav class="legal" aria-label="Legal">
     <a href="#">Política de cookies</a><a href="#">Política de privacidad</a><a href="#">Términos y condiciones</a>
     <a href="#">Normativa de los clubes</a><a href="#">Contrato y desistimiento</a><a href="#">Canal Ético</a>
     <a href="#">Condiciones de la promoción</a>
-    <span class="cr">VivaGym © 2026 Todos los derechos reservados</span>
+    <span class="cr">Prototipo de diseño no oficial, hecho por Hanzo. No es una página oficial de la marca que aparece ni está publicada ni respaldada por ella. No hay registro, acceso ni pago reales: los campos se rellenan con datos de ejemplo y no se envía ni se guarda nada.</span>
   </nav>
   <div class="locale">
     <label class="lang"><span class="sr">Idioma</span><span id="langLbl">ESPAÑOL</span><span data-i="CaretDown" data-s="20"></span>
-      <select id="langSel"><option value="es">Español</option><option value="pt">Português</option></select></label>
+      <span class="fx-sel" role="button" tabindex="0" id="langSel" data-opts='[["es", "Español"], ["pt", "Português"]]'></span></label>
     <label class="lang"><span class="sr">País</span><span id="ctryLbl">ESPAÑA</span><span data-i="CaretDown" data-s="20"></span>
-      <select id="ctrySel"><option value="ESPAÑA">España</option><option value="PORTUGAL">Portugal</option></select></label>
+      <span class="fx-sel" role="button" tabindex="0" id="ctrySel" data-opts='[["ESPAÑA", "España"], ["PORTUGAL", "Portugal"]]'></span></label>
   </div>
 </footer>
 
@@ -826,7 +840,7 @@ svg{display:block}
     <div class="promo" id="promo">
       <button aria-expanded="false" id="promoBtn">¿Tienes un código promocional?<span data-i="CaretDown" data-s="20"></span></button>
       <div class="body"><div>
-        <form class="row" id="promoF" novalidate><label class="sr" for="promoIn">Código</label><input id="promoIn" placeholder="Código" autocomplete="off"><button type="submit">Aplicar</button></form>
+        <div data-form class="row" id="promoF"><label class="sr" data-for="promoIn">Código</label><span class="fx-in" role="button" tabindex="0" id="promoIn" data-ph="Código"></span><button type="button" data-submit>Aplicar</button></div>
         <p class="msg" id="promoMsg" aria-live="polite"></p>
       </div></div>
     </div>
@@ -837,12 +851,12 @@ svg{display:block}
     <h1 class="h2">Tus datos de contacto</h1>
     <p class="p3">Te pedimos solo lo necesario. Son menos de 2 minutos.</p>
     <div class="form">
-      <div class="fld" data-v="email"><input id="cEmail" type="email" autocomplete="email" placeholder=" "><label for="cEmail">Email</label></div>
+      <div class="fld" data-v="email"><span class="fx-in" role="button" tabindex="0" id="cEmail"></span><label data-for="cEmail">Email</label></div>
       <div class="row2">
-        <div class="fld pre filled"><label for="cPre" class="sr">Prefijo</label><select id="cPre"><option>+34</option><option>+351</option><option>+33</option><option>+44</option><option>+49</option></select></div>
-        <div class="fld" data-v="phone"><input id="cPhone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder=" "><label for="cPhone">Número de teléfono</label></div>
+        <div class="fld pre filled"><label data-for="cPre" class="sr">Prefijo</label><span class="fx-sel" role="button" tabindex="0" id="cPre" data-opts='[["+34", "+34"], ["+351", "+351"], ["+33", "+33"], ["+44", "+44"], ["+49", "+49"]]'></span></div>
+        <div class="fld" data-v="phone"><span class="fx-in" role="button" tabindex="0" id="cPhone"></span><label data-for="cPhone">Número de teléfono</label></div>
       </div>
-      <label class="chk2"><input type="checkbox" id="cSave"><span>Guarda mi progreso y avísame si no termino</span></label>
+      <label class="chk2"><span class="fx-chk" role="checkbox" aria-checked="false" tabindex="0" id="cSave"></span><span>Guarda mi progreso y avísame si no termino</span></label>
     </div>
     <button class="exs" id="exSocio"><span style="flex:1"><b>¿Ya fuiste socio?</b><small>Consulta si tienes un precio especial para volver.</small></span><span data-i="CaretRight" data-s="20"></span></button>
   </section>
@@ -853,14 +867,14 @@ svg{display:block}
     <p class="p3">Los usamos solo para tu contrato y tus recibos.</p>
     <div class="seg3" id="docSeg" data-idx="0" role="tablist"><span class="knob"></span><button role="tab" aria-selected="true">DNI</button><button role="tab" aria-selected="false">NIE</button><button role="tab" aria-selected="false">Pasaporte</button></div>
     <div class="form">
-      <div class="fld" data-v="doc"><input id="dDoc" autocomplete="off" placeholder=" " style="text-transform:uppercase"><label for="dDoc" id="dDocL">Número de DNI</label></div>
+      <div class="fld" data-v="doc"><span class="fx-in" role="button" tabindex="0" id="dDoc" style="text-transform:uppercase"></span><label data-for="dDoc" id="dDocL">Número de DNI</label></div>
       <div class="row2">
-        <div class="fld" data-v="req"><input id="dName" autocomplete="given-name" placeholder=" "><label for="dName">Nombre</label></div>
-        <div class="fld" data-v="req"><input id="dLast" autocomplete="family-name" placeholder=" "><label for="dLast">Apellidos</label></div>
+        <div class="fld" data-v="req"><span class="fx-in" role="button" tabindex="0" id="dName"></span><label data-for="dName">Nombre</label></div>
+        <div class="fld" data-v="req"><span class="fx-in" role="button" tabindex="0" id="dLast"></span><label data-for="dLast">Apellidos</label></div>
       </div>
-      <div class="fld" data-v="date"><input id="dBirth" inputmode="numeric" placeholder=" " maxlength="10"><label for="dBirth">Fecha de nacimiento</label></div>
-      <div class="fld" data-v="cp"><input id="dCp" inputmode="numeric" autocomplete="postal-code" placeholder=" " maxlength="5"><label for="dCp">Código postal</label></div>
-      <div class="fld" data-v="req"><input id="dAddr" autocomplete="street-address" placeholder=" "><label for="dAddr">Calle, número y piso</label></div>
+      <div class="fld" data-v="date"><span class="fx-in" role="button" tabindex="0" id="dBirth"></span><label data-for="dBirth">Fecha de nacimiento</label></div>
+      <div class="fld" data-v="cp"><span class="fx-in" role="button" tabindex="0" id="dCp"></span><label data-for="dCp">Código postal</label></div>
+      <div class="fld" data-v="req"><span class="fx-in" role="button" tabindex="0" id="dAddr"></span><label data-for="dAddr">Calle, número y piso</label></div>
     </div>
   </section>
 
@@ -872,12 +886,8 @@ svg{display:block}
     <button class="apay" id="aPay">Pagar con Apple Pay</button>
     <div class="or">o con tarjeta</div>
     <div class="form">
-      <div class="fld" data-v="card"><input id="pCard" inputmode="numeric" autocomplete="cc-number" placeholder=" " maxlength="19"><label for="pCard">Número de tarjeta</label></div>
-      <div class="row2">
-        <div class="fld" data-v="exp"><input id="pExp" inputmode="numeric" autocomplete="cc-exp" placeholder=" " maxlength="5"><label for="pExp">Caducidad</label></div>
-        <div class="fld" data-v="cvc"><input id="pCvc" inputmode="numeric" autocomplete="cc-csc" placeholder=" " maxlength="4"><label for="pCvc">CVC</label></div>
-      </div>
-      <label class="chk2" id="pTermsL"><input type="checkbox" id="pTerms"><span>He leído y acepto las condiciones de contratación y la política de privacidad.</span></label>
+      <div class="democard"><span class="dc-ic"></span><span><b>Tarjeta de ejemplo ···· 4242</b><small>Prototipo: no se piden ni se guardan datos de pago</small></span></div>
+      <label class="chk2" id="pTermsL"><span class="fx-chk" role="checkbox" aria-checked="false" tabindex="0" id="pTerms"></span><span>He leído y acepto las condiciones de contratación y la política de privacidad.</span></label>
     </div>
   </section>
 
@@ -944,12 +954,68 @@ svg{display:block}
   </div>
 </aside></div>
 <div class="search" id="search" aria-hidden="true">
-  <div class="bar"><span data-i="MagnifyingGlass"></span><label class="sr" for="q">Buscar</label><input id="q" placeholder="Busca clases, servicios o secciones" autocomplete="off"><button class="ico-btn" id="searchX" aria-label="Cerrar búsqueda" data-i="X"></button></div>
+  <div class="bar"><span data-i="MagnifyingGlass"></span><label class="sr" data-for="q">Buscar</label><span class="fx-in" role="button" tabindex="0" id="q" data-ph="Busca clases, servicios o secciones"></span><button class="ico-btn" id="searchX" aria-label="Cerrar búsqueda" data-i="X"></button></div>
   <ul id="results"></ul>
 </div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><div class="grab"></div><div class="sh-head"><h3 id="sheetTitle"></h3><button class="x" id="sheetX" aria-label="Cerrar" data-i="X" data-s="16"></button></div><div id="sheetBody"></div></div>
 <div class="snack" id="snack" role="status"></div>
 
+<script>
+/* Campos de demostración: la página no tiene elementos de formulario reales.
+   Al tocar un campo se escribe un dato de ejemplo; al volver a tocarlo se borra. */
+(function(){
+var DEMO={nlEmail:'maria@ejemplo.com',promoIn:'VIVA2026',cEmail:'maria@ejemplo.com',cPhone:'612 345 678',dDoc:'12345678Z',dName:'María',dLast:'García López',dBirth:'14/03/1994',dCp:'28013',dAddr:'C. Mayor 6, 2º B',q:'Pilates',exE:'maria@ejemplo.com',invE:'lucia@ejemplo.com'};
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fire(el,t){ el.dispatchEvent(new Event(t,{bubbles:t!=='blur'&&t!=='focus'})); }
+function submit(f){ if(f) f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true})); }
+function setup(el){
+  if(el._fx) return; el._fx=1;
+  if(el.classList.contains('fx-in')){
+    Object.defineProperty(el,'value',{configurable:true,get:function(){return el.dataset.v||'';},set:function(v){v=v==null?'':String(v);el.dataset.v=v;el.textContent=v;}});
+    Object.defineProperty(el,'selectionStart',{configurable:true,get:function(){return (el.dataset.v||'').length;}});
+    if(!el.getAttribute('aria-label')){ var l=el.parentNode&&el.parentNode.querySelector('label'); el.setAttribute('aria-label',((l&&l.textContent)||el.dataset.ph||'Campo')+': toca para rellenar con un dato de ejemplo'); }
+    if(el.dataset.val) el.value=el.dataset.val;
+    if(el.closest('.fld')&&!el.parentNode.querySelector('.fx-hint')){ var h=document.createElement('span'); h.className='fx-hint'; h.setAttribute('aria-hidden','true'); h.textContent='Toca para rellenar'; el.parentNode.appendChild(h); }
+    el.addEventListener('click',function(){ fill(el); });
+    el.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); if(e.key==='Enter'&&el.value&&el.closest('[data-form]')) submit(el.closest('[data-form]')); else fill(el); } });
+  } else if(el.classList.contains('fx-chk')){
+    Object.defineProperty(el,'checked',{configurable:true,get:function(){return el.getAttribute('aria-checked')==='true';},set:function(v){el.setAttribute('aria-checked',v?'true':'false');}});
+    el.addEventListener('click',function(e){ e.stopPropagation(); el.checked=!el.checked; fire(el,'change'); });
+    el.addEventListener('keydown',function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); el.click(); } });
+  } else if(el.classList.contains('fx-sel')){
+    var opts=JSON.parse(el.dataset.opts||'[]'), i=0;
+    function paint(){ el.textContent=opts[i]?opts[i][1]:''; }
+    Object.defineProperty(el,'value',{configurable:true,get:function(){return opts[i]?opts[i][0]:'';},set:function(v){ for(var k=0;k<opts.length;k++) if(opts[k][0]===v){i=k;break;} paint(); }});
+    el.setAttribute('aria-label',(el.closest('label')&&el.closest('label').querySelector('.sr')?el.closest('label').querySelector('.sr').textContent:'Opción')+': toca para cambiar');
+    paint();
+    el.addEventListener('click',function(e){ e.preventDefault(); i=(i+1)%opts.length; paint(); fire(el,'change'); });
+    el.addEventListener('keydown',function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); el.click(); } });
+  }
+}
+function fill(el){
+  if(el._typing) return;
+  if(el.value){ el.value=''; fire(el,'input'); return; }
+  var demo=el.dataset.demo||DEMO[el.id]||'Ejemplo', n=0;
+  el._typing=1; el.classList.add('typing'); try{el.focus({preventScroll:true});}catch(_){}
+  (function step(){ el.value=demo.slice(0,++n); fire(el,'input');
+    if(n<demo.length) setTimeout(step, RM?0:26+Math.random()*30);
+    else { el._typing=0; el.classList.remove('typing'); fire(el,'change'); } })();
+}
+function scan(root){ if(!root.querySelectorAll) return; if(root.matches&&root.matches('.fx-in,.fx-chk,.fx-sel')) setup(root); root.querySelectorAll('.fx-in,.fx-chk,.fx-sel').forEach(setup); }
+window.fxScan=scan;
+document.addEventListener('click',function(e){
+  var t=e.target;
+  var b=t.closest&&t.closest('[data-form] button');
+  if(b&&(b.hasAttribute('data-submit')||!b.hasAttribute('type'))){ e.preventDefault(); submit(b.closest('[data-form]')); return; }
+  var x=t.closest&&t.closest('[data-ext]');
+  if(x){ e.preventDefault(); if(window.snack) snack('En la web real se abriría el mapa externo'); return; }
+  var l=t.closest&&t.closest('label');
+  if(l&&!t.closest('.fx-in,.fx-chk,.fx-sel')){ var tg=l.dataset.for?document.getElementById(l.dataset.for):l.querySelector('.fx-chk,.fx-sel,.fx-in'); if(tg){ e.preventDefault(); tg.click(); } }
+});
+new MutationObserver(function(ms){ ms.forEach(function(m){ m.addedNodes.forEach(scan); }); }).observe(document.documentElement,{childList:true,subtree:true});
+scan(document);
+})();
+</script>
 <script>
 /* ===== Icons (exportados del Figma) ===== */
 const P = (d, extra='') => `<path d="${d}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
@@ -1221,10 +1287,7 @@ $('#searchBtn').onclick = () => { renderResults($('#q').value); openLayer($('#se
 $('#searchX').onclick = closeLayer;
 
 /* Account */
-$('#userBtn').onclick = () => sheet(`<h3>Accede a tu área</h3><p>Gestiona tus reservas, tu cuota y tu progreso.</p>
-  <form id="loginF" novalidate><div class="field"><label class="sr" for="le">Email</label><input id="le" type="email" placeholder="Email"><button aria-label="Continuar">${icon('ArrowRight',20)}</button></div></form>
-  <p class="msg" id="lm"></p>`);
-document.addEventListener('submit', e => { if(e.target.id!=='loginF') return; e.preventDefault(); const v=$('#le').value; if(!/^\S+@\S+\.\S+$/.test(v)){ $('#lm').textContent='Introduce un email válido para continuar.'; return;} closeLayer(); snack('Te hemos enviado un enlace de acceso a '+v); });
+$('#userBtn').onclick = () => sheet(`<h3>Área de socio</h3><p>En el producto real aquí se accede a reservas, cuota y progreso. Este prototipo de diseño no tiene acceso de usuarios ni pide credenciales.</p><button class="bigbtn" onclick="closeLayer()">Entendido</button>`);
 
 /* ===== Header hide on scroll ===== */
 let lastY = scrollY;
@@ -1279,11 +1342,11 @@ const MAP_SVG = `<svg viewBox="0 0 360 240" width="100%" role="img" aria-label="
     <path d="M0 0 C-10 -12 -10 -26 0 -26 C10 -26 10 -12 0 0Z" fill="var(--text)" transform="translate(0 2)"/><circle cy="-15" r="4" fill="var(--bg)"/></g>
 </svg>`;
 $('#addrBtn').onclick = () => sheet(`<h3>VivaGym Puerta del Sol</h3>
-  <a class="mapbox" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${MAPQ}" aria-label="Abrir en Google Maps"><img src="${IMGS.map}" alt="Mapa de la zona de Puerta del Sol con la ubicación del gimnasio en la calle Mayor"><span class="mpin"><i></i>${icon('MapPin',22)}</span></a>
+  <button type="button" class="mapbox" data-ext aria-label="Abrir en Google Maps"><img src="${IMGS.map}" alt="Mapa de la zona de Puerta del Sol con la ubicación del gimnasio en la calle Mayor"><span class="mpin"><i></i>${icon('MapPin',22)}</span></button>
   <p style="margin:12px 0 4px;color:var(--text)">C. Mayor, 6, 28013 Madrid</p><p>A 3,2 km de ti · Metro Sol (L1, L2, L3) y Cercanías Sol</p>
   <div class="hrs"><span>Lunes a viernes</span><span>6:00–23:00 h</span><span>Sábados y domingos</span><span>8:00–21:00 h</span><span>Festivos</span><span>8:00–21:00 h</span></div>
   <p style="font-size:12px">Abrimos 363 días al año. Cerrado el 25 de diciembre y el 1 de enero.</p>
-  <div class="map-acts"><a class="btn1" style="margin:0" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${MAPQ}">${icon('MapPin',18)}Cómo llegar</a><a class="btn2" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${MAPQ}">Abrir en Google Maps</a></div>`);
+  <div class="map-acts"><button type="button" class="btn1" style="margin:0" data-ext>${icon('MapPin',18)}Cómo llegar</button><button type="button" class="btn2" data-ext>Abrir en Google Maps</button></div>`);
 
 /* ===== Tiempos populares ===== */
 const BASE = [21.1,21.8,21.8,28.2,30.1,30.1,38.4,31.4,24.3,30.1,42.2,62.1,64,57,56.3,37.1,17.3,6.4,6];
@@ -1534,20 +1597,17 @@ const VAL = {
   exp: v=>{ const m=v.match(/^(\d{2})\/(\d{2})$/); if(!m||+m[1]<1||+m[1]>12) return 'Usa MM/AA.'; const e=new Date(2000+ +m[2], +m[1]); return e>new Date()||'La tarjeta ha caducado.'; },
   cvc: v=>/^\d{3,4}$/.test(v)||'3 o 4 cifras.'
 };
-function checkFld(f, show=true){ const i=f.querySelector('input'); const r=VAL[f.dataset.v](i.value); const ok=r===true; let em=f.querySelector('.em'); if(show){ f.classList.toggle('err',!ok); f.classList.toggle('ok',ok); if(!ok){ if(!em){ em=document.createElement('span'); em.className='em'; f.appendChild(em);} em.textContent=r; } else em&&em.remove(); } return ok; }
-document.querySelectorAll('.fld[data-v]').forEach(f=>{ const i=f.querySelector('input');
+function checkFld(f, show=true){ const i=f.querySelector('.fx-in'); const r=VAL[f.dataset.v](i.value); const ok=r===true; let em=f.querySelector('.em'); if(show){ f.classList.toggle('err',!ok); f.classList.toggle('ok',ok); if(!ok){ if(!em){ em=document.createElement('span'); em.className='em'; f.appendChild(em);} em.textContent=r; } else em&&em.remove(); } return ok; }
+document.querySelectorAll('.fld[data-v]').forEach(f=>{ const i=f.querySelector('.fx-in');
   i.addEventListener('input',()=>{ f.classList.toggle('filled', !!i.value); if(f.classList.contains('err')) checkFld(f); });
   i.addEventListener('blur',()=>{ if(i.value) checkFld(f); }); });
 const fmt = (id, fn) => $(id).addEventListener('input', e=>{ const p=e.target.selectionStart, before=e.target.value.length; e.target.value=fn(e.target.value); });
 fmt('#dBirth', v=>{ const d=v.replace(/\D/g,'').slice(0,8); return d.length>4?`${d.slice(0,2)}/${d.slice(2,4)}/${d.slice(4)}`:d.length>2?`${d.slice(0,2)}/${d.slice(2)}`:d; });
-fmt('#pCard', v=>v.replace(/\D/g,'').slice(0,16).replace(/(\d{4})(?=\d)/g,'$1 '));
-fmt('#pExp', v=>{ const d=v.replace(/\D/g,'').slice(0,4); return d.length>2?d.slice(0,2)+'/'+d.slice(2):d; });
-fmt('#pCvc', v=>v.replace(/\D/g,'').slice(0,4));
 fmt('#cPhone', v=>v.replace(/[^\d ]/g,'').slice(0,13));
 fmt('#dCp', v=>v.replace(/\D/g,'').slice(0,5));
-function stepValid(step){ const flds=[...document.querySelectorAll(`.fstep[data-step="${step}"] .fld[data-v]`)]; const ok=flds.map(f=>checkFld(f)).every(Boolean); const bad=flds.find(f=>f.classList.contains('err')); if(bad){ bad.querySelector('input').focus(); } return ok; }
+function stepValid(step){ const flds=[...document.querySelectorAll(`.fstep[data-step="${step}"] .fld[data-v]`)]; const ok=flds.map(f=>checkFld(f)).every(Boolean); const bad=flds.find(f=>f.classList.contains('err')); if(bad){ bad.querySelector('.fx-in').focus(); } return ok; }
 
-$('#exSocio').onclick = () => sheet(`<h3>¿Ya fuiste socio?</h3><p>Escribe el email con el que estabas dado de alta y comprobamos si tienes un precio especial para volver.</p><form id="exF" novalidate><div class="field"><label class="sr" for="exE">Email</label><input id="exE" type="email" placeholder="Email" value="${$('#cEmail').value}"><button aria-label="Comprobar">${icon('ArrowRight',20)}</button></div></form><p class="msg" id="exM"></p>`);
+$('#exSocio').onclick = () => sheet(`<h3>¿Ya fuiste socio?</h3><p>Escribe el email con el que estabas dado de alta y comprobamos si tienes un precio especial para volver.</p><div data-form id="exF"><div class="field"><label class="sr" data-for="exE">Email</label><span class="fx-in" role="button" tabindex="0" id="exE" data-ph="Email" data-val="${$('#cEmail').value}"></span><button aria-label="Comprobar">${icon('ArrowRight',20)}</button></div></div><p class="msg" id="exM"></p>`);
 document.addEventListener('submit', e=>{ if(e.target.id!=='exF') return; e.preventDefault(); const v=$('#exE').value; if(!/^\S+@\S+\.\S+$/.test(v)){ $('#exM').textContent='Introduce un email válido.'; return; } $('#exM').className='msg ok'; $('#exM').textContent='No hemos encontrado una cuota anterior con ese email. Sigues con el precio actual.'; });
 $('#cSave').onchange = e => { if(e.target.checked) snack('Guardaremos tu progreso y te avisaremos por email'); };
 
@@ -1610,7 +1670,7 @@ function render(r){
   if(r==='confirmacion') renderConfirm();
   cta.classList.toggle('show', false);
   scrollTo({top:0, behavior:'instant'});
-  document.title = r==='inicio' ? 'VivaGym Puerta del Sol · Prototipo' : 'Alta · VivaGym Puerta del Sol';
+  document.title = r==='inicio' ? 'Prototipo de diseño · Ficha de club (no oficial)' : 'Prototipo de diseño · Alta (no oficial)';
 }
 function scrollToSection(id){ const el=document.getElementById(id); if(!el) return; if(route!=='inicio'){ go('inicio'); setTimeout(()=>el.scrollIntoView({behavior: reduce?'auto':'smooth'}), 60); } else el.scrollIntoView({behavior: reduce?'auto':'smooth'}); }
 document.addEventListener('click', e => { const a=e.target.closest('a[href^="#"]'); if(!a) return; const id=a.getAttribute('href').slice(1); if(!id||ORDER.includes(id)) return;
@@ -1651,12 +1711,12 @@ function renderConfirm(){
     : `<small>Tu primera visita</small><b>Sin reservar</b><p>Puedes reservarla cuando quieras desde la app.</p><div class="act"><a class="btn2" href="#visita">Reservar ahora</a></div>`;
   const cal=$('#cal'); if(cal) cal.onclick=()=>snack('Visita añadida a tu calendario');
   const tq=ST.extras.has('taquilla');
-  $('#bring').innerHTML = ['Ropa y zapatillas cómodas','Una toalla pequeña','Agua: hay fuentes en el club', tq?'Candado no: ya tienes taquilla personal':'Un candado para la taquilla'].map(t=>`<li><label><input type="checkbox"><span>${t}</span></label></li>`).join('');
+  $('#bring').innerHTML = ['Ropa y zapatillas cómodas','Una toalla pequeña','Agua: hay fuentes en el club', tq?'Candado no: ya tienes taquilla personal':'Un candado para la taquilla'].map(t=>`<li><label><span class="fx-chk" role="checkbox" aria-checked="false" tabindex="0"></span><span>${t}</span></label></li>`).join('');
   $('#invTxt').textContent = 'Empezar acompañada es más fácil. Invita a un amigo a venir contigo' + (when?` ${when.replace(/ a las.*/,'')}.`:'.');
   $('#appTxt').textContent = `Entra con ${mail}. Ahí tienes tu acceso, tus reservas y tu progreso.`;
 }
 $('#wallet').onclick = () => snack('Acceso guardado en Wallet');
-$('#invBtn').onclick = () => sheet(`<h3>Invita a alguien</h3><p>Le enviaremos un pase para que venga contigo a tu primera visita.</p><form id="invF" novalidate><div class="field"><label class="sr" for="invE">Email de tu amigo</label><input id="invE" type="email" placeholder="Email de tu amigo"><button aria-label="Enviar">${icon('ArrowRight',20)}</button></div></form><p class="msg" id="invM"></p>`);
+$('#invBtn').onclick = () => sheet(`<h3>Invita a alguien</h3><p>Le enviaremos un pase para que venga contigo a tu primera visita.</p><div data-form id="invF"><div class="field"><label class="sr" data-for="invE">Email de tu amigo</label><span class="fx-in" role="button" tabindex="0" id="invE" data-ph="Email de tu amigo"></span><button aria-label="Enviar">${icon('ArrowRight',20)}</button></div></div><p class="msg" id="invM"></p>`);
 document.addEventListener('submit', e=>{ if(e.target.id!=='invF') return; e.preventDefault(); const v=$('#invE').value; if(!/^\S+@\S+\.\S+$/.test(v)){ $('#invM').textContent='Introduce un email válido.'; return; } closeLayer(); snack('Invitación enviada a '+v); });
 document.querySelectorAll('[data-store]').forEach(b=>b.onclick=()=>snack('Abriendo '+b.textContent));
 
