@@ -275,7 +275,12 @@ svg{display:block}
 .chart .hit{fill:transparent;cursor:pointer}
 .chart .hl{fill:var(--accent);opacity:0;transition:opacity .2s}
 .chart .col.sel .hl{opacity:.06}
-.ch-tip{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;line-height:16px;color:var(--text-2);min-height:36px;padding:8px 0 0 32px}
+.chart{position:relative}
+.ch-tip{position:absolute;left:0;top:0;z-index:3;display:flex;flex-direction:column;gap:4px;min-width:132px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);box-shadow:0 8px 24px rgba(3,20,48,.14);font-size:12px;line-height:16px;color:var(--text-2);pointer-events:none;opacity:0;transform:translate(var(--tx,0),calc(var(--ty,0px) + 4px));transition:opacity .18s, transform .22s var(--ease)}
+.ch-tip.on{opacity:1;transform:translate(var(--tx,0),var(--ty,0px))}
+.ch-tip::after{content:"";position:absolute;left:var(--ax,50%);width:8px;height:8px;margin-left:-5px;background:var(--bg);border:1px solid var(--line);border-width:0 1px 1px 0;transform:rotate(45deg);bottom:-5px}
+.ch-tip.below::after{bottom:auto;top:-5px;border-width:1px 0 0 1px}
+.chart .hit{cursor:pointer}
 .ch-tip span{white-space:nowrap;display:flex;align-items:center;gap:6px}
 .ch-tip i{width:6px;height:6px;border-radius:50%}
 .ch-tip b{font-weight:700;color:var(--text)}
@@ -1467,12 +1472,29 @@ const visible=[true,true,true];
   });
   $('#chSvg').innerHTML = s;
   $('#chLegend').innerHTML = SERIES.map((x,i)=>`<button aria-pressed="true" data-s="${i}"><i style="background:${x.c}"></i>${x.n}</button>`).join('');
-  $('#chLegend').onclick = e => { const b=e.target.closest('button'); if(!b) return; const i=+b.dataset.s; visible[i]=!visible[i]; if(!visible.some(Boolean)){ visible[i]=true; return; } b.setAttribute('aria-pressed',visible[i]); $('#chSvg').querySelectorAll(`.rb[data-s="${i}"]`).forEach(r=>r.classList.toggle('off',!visible[i])); showTip(curCol); };
-  let curCol = 11;
-  function showTip(i){ curCol=i; $('#chSvg').querySelectorAll('.col').forEach(g=>g.classList.toggle('sel', +g.dataset.i===i)); $('#chTip').innerHTML = `<b>${XL[i]}</b>` + SERIES.map((x,j)=>visible[j]?`<span><i style="background:${x.c}"></i>${x.n} ${DATA[i][j][0]}–${DATA[i][j][1]}</span>`:'').join(''); }
-  const pick = e => { const g=e.target.closest('.col'); if(g) showTip(+g.dataset.i); };
-  $('#chSvg').addEventListener('mouseover',pick); $('#chSvg').addEventListener('click',pick); $('#chSvg').addEventListener('focusin',pick);
-  showTip(11);
+  $('#chLegend').onclick = e => { const b=e.target.closest('button'); if(!b) return; const i=+b.dataset.s; visible[i]=!visible[i]; if(!visible.some(Boolean)){ visible[i]=true; return; } b.setAttribute('aria-pressed',visible[i]); $('#chSvg').querySelectorAll(`.rb[data-s="${i}"]`).forEach(r=>r.classList.toggle('off',!visible[i])); if(curCol!=null) showTip(curCol); };
+  let curCol = null;
+  /* Tooltip: aparece al pulsar una columna (no en hover); otro toque en la misma columna o fuera lo cierra */
+  function showTip(i){
+    const tip=$('#chTip'), chartEl=$('#chart'), svg=$('#chSvg');
+    if(i==null){ curCol=null; svg.querySelectorAll('.col').forEach(g=>g.classList.remove('sel')); tip.classList.remove('on'); return; }
+    curCol=i; svg.querySelectorAll('.col').forEach(g=>g.classList.toggle('sel', +g.dataset.i===i));
+    tip.innerHTML = `<b>${XL[i]}</b>` + SERIES.map((x,j)=>visible[j]?`<span><i style="background:${x.c}"></i>${x.n} ${DATA[i][j][0]}–${DATA[i][j][1]}</span>`:'').join('');
+    const cr=chartEl.getBoundingClientRect(), sr=svg.getBoundingClientRect(), k=sr.width/W;
+    const vis=DATA[i].filter((_,j)=>visible[j]), top=Math.max(...vis.map(d=>d[1])), bot=Math.min(...vis.map(d=>d[0]));
+    const cxp=sr.left-cr.left+(L+i*cw+cw/2)*k, tw=tip.offsetWidth, th=tip.offsetHeight;
+    let left=Math.min(Math.max(cxp-tw/2, 0), cr.width-tw);
+    let ty=sr.top-cr.top+y(top)*k-th-10, below=false;
+    if(ty < 0){ ty=sr.top-cr.top+y(bot)*k+10; below=true; }
+    tip.classList.toggle('below',below);
+    tip.style.setProperty('--tx',left+'px'); tip.style.setProperty('--ty',ty+'px'); tip.style.setProperty('--ax',(cxp-left)+'px');
+    tip.classList.add('on');
+  }
+  $('#chSvg').addEventListener('click', e => { const g=e.target.closest('.col'); if(!g) return; const i=+g.dataset.i; showTip(curCol===i?null:i); });
+  $('#chSvg').addEventListener('keydown', e => { if(e.key!=='Enter'&&e.key!==' ') return; const g=e.target.closest('.col'); if(!g) return; e.preventDefault(); const i=+g.dataset.i; showTip(curCol===i?null:i); });
+  document.addEventListener('click', e => { if(curCol!=null && !e.target.closest('#chSvg') && !e.target.closest('#chLegend')) showTip(null); });
+  addEventListener('keydown', e => { if(e.key==='Escape' && curCol!=null) showTip(null); });
+  addEventListener('resize', () => { if(curCol!=null) showTip(curCol); });
 })();
 $('#appLink').onclick = e => { e.preventDefault(); snack('Abriendo la app VivaGym'); };
 
