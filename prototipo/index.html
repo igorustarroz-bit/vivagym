@@ -281,6 +281,9 @@ svg{display:block}
 .ch-tip::after{content:"";position:absolute;left:var(--ax,50%);width:8px;height:8px;margin-left:-5px;background:var(--bg);border:1px solid var(--line);border-width:0 1px 1px 0;transform:rotate(45deg);bottom:-5px}
 .ch-tip.below::after{bottom:auto;top:-5px;border-width:1px 0 0 1px}
 .chart .hit{cursor:pointer}
+.chart .hit:focus,.chart .hit:focus-visible{outline:none}
+.chart .col:focus-within .hl{opacity:.06}
+@media (hover:hover){.chart .col:hover .hl{opacity:.06}}
 .ch-tip span{white-space:nowrap;display:flex;align-items:center;gap:6px}
 .ch-tip i{width:6px;height:6px;border-radius:50%}
 .ch-tip b{font-weight:700;color:var(--text)}
