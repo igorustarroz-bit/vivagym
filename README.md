@@ -1,6 +1,6 @@
 # Prototipo de diseño · Ficha de club y alta (no oficial)
 
-**Prototipo no oficial.** Experimento de diseño front-end hecho por Hanzo (hanzo.es) para explorar mejoras en el producto digital de un cliente. No es una página oficial de la marca que aparece, no está publicada ni respaldada por ella y no es un producto en funcionamiento. No hay registro, acceso de usuarios ni pago reales: la página no contiene formularios ni campos de texto, los "campos" se rellenan con datos de ejemplo al tocarlos y no se envía ni se guarda nada. No hace peticiones a terceros. Las marcas pertenecen a sus respectivos propietarios.
+**Prototipo no oficial.** Experimento de diseño front-end hecho por Cloud District (clouddistrict.com) para explorar mejoras en el producto digital de un cliente. No es una página oficial de la marca que aparece, no está publicada ni respaldada por ella y no es un producto en funcionamiento. No hay registro, acceso de usuarios ni pago reales: la página no contiene formularios ni campos de texto, los "campos" se rellenan con datos de ejemplo al tocarlos y no se envía ni se guarda nada. No hace peticiones a terceros. Las marcas pertenecen a sus respectivos propietarios.
 
 ## Qué es
 
