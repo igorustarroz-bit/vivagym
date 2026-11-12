@@ -16,6 +16,9 @@
 @font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/inter-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/inter-latin-700-normal.woff2) format("woff2")}
 @font-face{font-family:"Inter";font-style:normal;font-weight:900;font-display:swap;src:url(../fonts/inter-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/noto-serif-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/noto-serif-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif";font-style:normal;font-weight:900;font-display:swap;src:url(../fonts/noto-serif-latin-900-normal.woff2) format("woff2")}
 :root{
   --bg:#ffffff; --page:#f3f7fe; --surface:#ecf3fe; --surface-2:#ffffff;
   --text:#031430; --text-2:#0c51c0; --accent:#0f65f0; --accent-2:#3f84f3;
@@ -46,7 +49,8 @@
   color-scheme: dark;
 }
 :root{--grid:var(--surface)}
-:root[data-brand="alt"]{--bg:#efefef;--page:#e2e2e2;--grid:rgba(3,20,48,.13)}
+/* Segunda marca: Noto Serif */
+:root[data-brand="alt"]{--font:"Noto Serif", Georgia, "Times New Roman", serif;--bg:#efefef;--page:#e2e2e2;--grid:rgba(3,20,48,.13)}
 @media (prefers-color-scheme: dark){ :root[data-brand="alt"]:not([data-theme="light"]){--bg:#17181b;--page:#0e0f11;--grid:rgba(255,255,255,.12)} }
 :root[data-brand="alt"][data-theme="dark"]{--bg:#17181b;--page:#0e0f11;--grid:rgba(255,255,255,.12)}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 112px);scroll-behavior:smooth}
@@ -1341,12 +1345,12 @@ const MAP_SVG = `<svg viewBox="0 0 360 240" width="100%" role="img" aria-label="
     <path d="M0 55 L130 46 L180 112" stroke-width="10"/><path d="M180 112 L360 78" stroke-width="10"/>
     <path d="M180 112 L130 240" stroke-width="7"/><path d="M180 112 L232 240" stroke-width="7"/><path d="M180 112 L205 0" stroke-width="6"/><path d="M180 112 L360 175" stroke-width="7"/><path d="M180 112 L140 0" stroke-width="5"/></g>
   <ellipse cx="180" cy="112" rx="44" ry="26" fill="var(--bg)" stroke="var(--soft)" stroke-width="2"/>
-  <g font-family="Inter, system-ui, sans-serif" font-size="10" fill="var(--text-2)">
+  <g style="font-family:var(--font)" font-size="10" fill="var(--text-2)">
     <text x="20" y="45" transform="rotate(-4 20 45)">Calle Mayor</text><text x="262" y="83" transform="rotate(-10 262 83)">C. de Alcalá</text>
     <text x="142" y="200" transform="rotate(-68 142 200)">C. del Arenal</text><text x="188" y="40" transform="rotate(-78 188 40)">C. de la Montera</text>
     <text x="158" y="116" font-weight="700" fill="var(--text)">Puerta del Sol</text></g>
-  <g transform="translate(214 128)"><rect x="-12" y="-9" width="24" height="18" rx="9" fill="var(--accent)"/><text x="0" y="4" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#fff">M</text></g>
-  <text x="230" y="132" font-family="Inter, system-ui, sans-serif" font-size="9" fill="var(--text-2)">Sol · L1 L2 L3</text>
+  <g transform="translate(214 128)"><rect x="-12" y="-9" width="24" height="18" rx="9" fill="var(--accent)"/><text x="0" y="4" text-anchor="middle" style="font-family:var(--font)" font-size="9" font-weight="700" fill="#fff">M</text></g>
+  <text x="230" y="132" style="font-family:var(--font)" font-size="9" fill="var(--text-2)">Sol · L1 L2 L3</text>
   <g transform="translate(118 58)"><circle r="16" fill="var(--accent)" opacity=".18"><animate attributeName="r" values="8;20;8" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".35;0;.35" dur="2.4s" repeatCount="indefinite"/></circle>
     <path d="M0 0 C-10 -12 -10 -26 0 -26 C10 -26 10 -12 0 0Z" fill="var(--text)" transform="translate(0 2)"/><circle cy="-15" r="4" fill="var(--bg)"/></g>
 </svg>`;
