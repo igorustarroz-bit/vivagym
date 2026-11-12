@@ -1145,7 +1145,7 @@ const PT = {
 'Este campo es obligatorio.':'Este campo é obrigatório.','El código postal tiene 5 cifras.':'O código postal tem 5 dígitos.','Usa el formato dd/mm/aaaa.':'Usa o formato dd/mm/aaaa.','Esa fecha no existe.':'Essa data não existe.','Tienes que tener al menos 14 años.':'Tens de ter pelo menos 14 anos.',
 '8 números y una letra.':'8 números e uma letra.','La letra del DNI no coincide.':'A letra do DNI não coincide.','Empieza por X, Y o Z, 7 números y una letra.':'Começa por X, Y ou Z, 7 números e uma letra.','La letra del NIE no coincide.':'A letra do NIE não coincide.','Revisa el número de pasaporte.':'Verifica o número do passaporte.',
 // F4
-'Revisa y vamos al pago':'Revê e vamos ao pagamento','Editar':'Editar','Matrícula':'Inscrição','Cómo pagas':'Como pagas','Pagar con Apple Pay':'Pagar com Apple Pay','Finalizar alta (sin pago)':'Concluir inscrição (sem pagamento)','o con tarjeta':'ou com cartão','Número de tarjeta':'Número do cartão','Caducidad':'Validade','CVC':'CVC',
+'Revisa y vamos al pago':'Revê e vamos ao pagamento','Editar':'Editar','Matrícula':'Inscrição','Cómo pagas':'Como pagas','Pagar con Apple Pay':'Pagar com Apple Pay','Finalizar alta':'Concluir inscrição','o con tarjeta':'ou com cartão','Número de tarjeta':'Número do cartão','Caducidad':'Validade','CVC':'CVC',
 'He leído y acepto las condiciones de contratación y la política de privacidad.':'Li e aceito as condições de contratação e a política de privacidade.','Acepta las condiciones para continuar':'Aceita as condições para continuar',
 'Revisa el número de tarjeta.':'Verifica o número do cartão.','Ese número de tarjeta no es válido.':'Esse número de cartão não é válido.','Usa MM/AA.':'Usa MM/AA.','La tarjeta ha caducado.':'O cartão expirou.','3 o 4 cifras.':'3 ou 4 dígitos.',
 'Procesando el pago…':'A processar o pagamento…',
@@ -1661,7 +1661,7 @@ function render(r){
   if(STEPS.includes(r)){
     document.querySelectorAll('.fstep').forEach(s=>s.hidden = s.dataset.step!==r);
     const i=STEPS.indexOf(r); [...$('#steps').children].forEach((s,j)=>{ s.classList.toggle('cur',j===i); s.setAttribute('aria-current', j===i?'step':'false'); });
-    $('#fNext').textContent = r==='pago' ? 'Finalizar alta (sin pago)' : NEXTLBL[r];
+    $('#fNext').textContent = r==='pago' ? 'Finalizar alta' : NEXTLBL[r];
     if(r==='pago') renderReview();
     const sec=document.querySelector(`.fstep[data-step="${r}"]`); sec.style.animation='none'; void sec.offsetWidth; sec.style.animation=`${back?'scrBack':'scrIn'} .45s var(--ease)`;
   }
