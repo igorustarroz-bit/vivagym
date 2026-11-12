@@ -4,7 +4,11 @@
 
 ## Qué es
 
-Un único `index.html` autocontenido (estilos, scripts e imágenes en línea; la tipografía Inter se sirve desde `fonts/`, licencia OFL). Pensado para móvil (320–440 px); en escritorio se muestra como una columna de móvil centrada.
+- `index.html`: índice con el aviso de prototipo no oficial y el enlace (y QR) al prototipo.
+- `prototipo/index.html`: el prototipo, autocontenido (estilos, scripts e imágenes en línea). Pensado para móvil (320–440 px); en escritorio se muestra como una columna de móvil centrada.
+- `fonts/`: Inter servida desde el propio dominio (licencia OFL).
+
+Comportamiento: al tocar un campo se rellena con un dato de ejemplo (otro toque lo borra); se puede avanzar de paso aunque haya errores de validación; el pago está desactivado.
 
 Rutas por hash: `#inicio`, `#extras`, `#contacto`, `#datos`, `#pago`, `#visita`, `#confirmacion`.
 
