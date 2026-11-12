@@ -50,9 +50,9 @@
 }
 :root{--grid:var(--surface)}
 /* Segunda marca: Noto Serif */
-:root[data-brand="alt"]{--font:"Noto Serif", Georgia, "Times New Roman", serif;--bg:#efefef;--page:#e2e2e2;--grid:rgba(3,20,48,.13)}
-@media (prefers-color-scheme: dark){ :root[data-brand="alt"]:not([data-theme="light"]){--bg:#17181b;--page:#0e0f11;--grid:rgba(255,255,255,.12)} }
-:root[data-brand="alt"][data-theme="dark"]{--bg:#17181b;--page:#0e0f11;--grid:rgba(255,255,255,.12)}
+:root[data-brand="alt"]{--font:"Noto Serif", Georgia, "Times New Roman", serif;--bg:#efefef;--page:#e2e2e2;--text:#1c1230;--text-2:#5b3a8c;--accent:#7a4fb3;--accent-2:#9370c4;--soft:#c7b3e6;--line:#ddd1ef;--surface:#ece5f7;--surface-2:#ffffff;--overlay:rgba(64,36,110,.72);--ph-a:#e3d9f3;--ph-b:#f0eaf9;--btn:#1c1230;--btn-text:#ffffff;--scrim:rgba(28,18,48,.45);--grid:rgba(28,18,48,.13);--opt-line:#e6ddf3}
+@media (prefers-color-scheme: dark){ :root[data-brand="alt"]:not([data-theme="light"]){--bg:#17181b;--page:#0e0f11;--text:#efe9f8;--text-2:#c7b3e6;--accent:#9a73d6;--accent-2:#b596e3;--soft:#5a3f86;--line:#3a2c55;--surface:#241d33;--surface-2:#2c2340;--overlay:rgba(40,22,72,.78);--ph-a:#2a2140;--ph-b:#332848;--btn:#efe9f8;--btn-text:#1c1230;--scrim:rgba(0,0,0,.6);--grid:rgba(255,255,255,.12);--opt-line:var(--line)} }
+:root[data-brand="alt"][data-theme="dark"]{--bg:#17181b;--page:#0e0f11;--text:#efe9f8;--text-2:#c7b3e6;--accent:#9a73d6;--accent-2:#b596e3;--soft:#5a3f86;--line:#3a2c55;--surface:#241d33;--surface-2:#2c2340;--overlay:rgba(40,22,72,.78);--ph-a:#2a2140;--ph-b:#332848;--btn:#efe9f8;--btn-text:#1c1230;--scrim:rgba(0,0,0,.6);--grid:rgba(255,255,255,.12);--opt-line:var(--line)}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 112px);scroll-behavior:smooth}
 body,.hdr,.fhdr,.stabs,.ffoot,.sheet,.drawer,.app{transition:background-color .4s}
 *,*::before,*::after{box-sizing:border-box}
@@ -641,6 +641,15 @@ svg{display:block}
 :root[data-brand="alt"] :is(.open-dot,.cap h3 .dotbig,.tl .now::after,.pill i,.legend-av i,.ch-legend i,.ch-tip i,.avs .av,.avs .av .ph,.tr-top .ph,.bigbtn .spin,.procing .spin,.tlx > div::before,.mpin i){border-radius:50%!important}
 :root[data-brand="alt"] .mpin{border-radius:50% 50% 50% 0!important}
 :root[data-brand="alt"] svg rect{rx:0;ry:0}
+/* Segunda marca: los azules fijos del CSS, a violeta */
+:root[data-brand="alt"] .opt,:root[data-brand="alt"] .opt.incl:hover{border-color:var(--opt-line)}
+:root[data-brand="alt"] .mpin{box-shadow:0 4px 12px rgba(64,36,110,.35)}
+:root[data-brand="alt"] .procing{background:rgba(64,36,110,.4)}
+@media (prefers-color-scheme: dark){ :root[data-brand="alt"]:not([data-theme="light"]) .hero .photo::before,:root[data-brand="alt"]:not([data-theme="light"]) .inst .track .ph::after{background:rgba(40,22,72,.55)} }
+:root[data-brand="alt"][data-theme="dark"] .hero .photo::before,:root[data-brand="alt"][data-theme="dark"] .inst .track .ph::after{background:rgba(40,22,72,.55)}
+:root[data-brand="alt"] .mpin i{animation-name:pinPulseV}
+@keyframes pinPulseV{0%{box-shadow:0 0 0 0 rgba(122,79,179,.45)}100%{box-shadow:0 0 0 18px rgba(122,79,179,0)}}
+:root[data-brand="alt"] .field:focus-within{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
 /* ===== Segunda marca: duotono por imagen con filtros SVG (cada imagen su pareja de colores) ===== */
 :root[data-brand="alt"] .ph img{filter:var(--duo,none)}
 @media (prefers-reduced-motion: reduce){
